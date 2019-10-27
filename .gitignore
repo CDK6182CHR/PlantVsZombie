@@ -1,0 +1,7 @@
+*.vcxproj
+*.filters
+*.user
+Debug
+Release
+test*.md
+test*.html

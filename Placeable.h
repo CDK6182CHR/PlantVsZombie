@@ -1,0 +1,29 @@
+/*
+所有可放在画面上的基类。
+抽象地，也包括子弹。
+*/
+#pragma once
+#include "Position.h"
+
+class Yard;
+class Block;
+class System;
+
+class Placeable
+{
+protected:
+	Position position;//组合关系
+	System& system;
+public:
+	static int timestamp;
+	Placeable(System& sys);
+	virtual void update() = 0; //不负责修改时间戳
+	virtual void remove() = 0; //Seed和其他类的remove方法会有不同，故此
+	Position& getPosition();
+	Block* getBlock();
+	int getRow();
+	int getColpix();
+	void setPosition(int row, int colpix);
+	virtual ~Placeable();
+};
+
