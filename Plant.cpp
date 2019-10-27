@@ -1,6 +1,7 @@
 #include "plants\Plant.h"
 #include "Block.h"
 #include "System.h"
+#include "Position.h"
 
 Plant::Plant(System& sys):Placeable(sys),hp(0)
 {
@@ -24,6 +25,13 @@ void Plant::remove()
 	if (pBlock->currentPlant() == this)
 		pBlock->removePlant();
 	system.removeItem(this);
+}
+
+void Plant::eaten(int dh)
+{
+	hp -= dh;
+	if (hp <= 0)
+		remove();
 }
 
 void Plant::setBlock(int row, int col)

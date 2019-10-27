@@ -13,5 +13,6 @@ class Yard
 public:
 	void diaplay()const;
 	void update();//时间更新引起
+	Block* blockAt(int row, int col);
 };
 

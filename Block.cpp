@@ -37,6 +37,11 @@ std::list<Zombie*>& Block::getZombies()
 	return zombies;
 }
 
+int Block::zombieCount() const
+{
+	return zombies.size();
+}
+
 void Block::removePlant()
 {
 	plant = nullptr;

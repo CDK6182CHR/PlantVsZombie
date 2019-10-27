@@ -23,6 +23,7 @@ public:
 	void setPlant(Plant* plant);
 	Plant* currentPlant();
 	std::list<Zombie*>& getZombies();
+	int zombieCount()const;
 	void removePlant();
 };
 

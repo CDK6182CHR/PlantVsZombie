@@ -19,5 +19,6 @@ public:
 	void setBlock(int row, int col);//设置格子为单位的行列，col数据指向最左的列。
 	inline int getRow()const { return row; }
 	inline int getColpix()const { return colpix; }
+	bool inside()const;
 };
 

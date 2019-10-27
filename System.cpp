@@ -11,6 +11,7 @@ void System::update()
 		p->update();
 	for (Seed* p : seeds)
 		p->update();
+	yard.diaplay();
 }
 
 void System::addItem(Placeable* item)
