@@ -8,8 +8,8 @@
 ZombieGenerator::ZombieGenerator(System& sys):system(sys)
 {
 	srand(time(nullptr));
-	factories[0] = new Factory<NormalZombie>(system,20,20);
-	factories[1] = new Factory<RoadblockZombie>(system,10,50);
+	factories[0] = new ZombieFactory<NormalZombie>(system,20,20);
+	factories[1] = new ZombieFactory<RoadblockZombie>(system,10,50);
 }
 
 /*
@@ -20,7 +20,7 @@ void ZombieGenerator::generate()
 	int tw = totalWeight();
 	if (tw == 0)
 		return;
-	int upper = int(tw * 15.0 / 1);
+	int upper = int(tw * 10.0 / 1);
 	int r = rand() % upper;
 	if (r < tw) {
 		makeZombie(getFactory(r));
@@ -42,7 +42,7 @@ int ZombieGenerator::totalWeight() const
 	return tw;
 }
 
-AbstractFactory* ZombieGenerator::getFactory(const int x)
+AbstractZombieFactory* ZombieGenerator::getFactory(const int x)
 {
 	int cur = 0;
 	for (int i = 0; i < N; i++) {
@@ -56,7 +56,7 @@ AbstractFactory* ZombieGenerator::getFactory(const int x)
 	return nullptr;
 }
 
-void ZombieGenerator::makeZombie(AbstractFactory* factory)
+void ZombieGenerator::makeZombie(AbstractZombieFactory* factory)
 {
 	if (factory == nullptr)
 		return;

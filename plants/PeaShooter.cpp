@@ -4,11 +4,9 @@
 #include <iostream>
 using namespace std;
 
-int PeaShooter::nextAvailableTime = 0;
 
 PeaShooter::PeaShooter(System& sys):Plant(sys),nextShootTime(timestamp+2)
 {
-	nextAvailableTime = timestamp + coldPeriod;
 	hp = initHp;
 }
 

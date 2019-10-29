@@ -85,39 +85,7 @@ Block::~Block()
 
 void Block::updateStrings()
 {
-	//2019.10.28 todo：第一行固定用来显示子弹。
-	int originRows = zombies.size();
-	const int maxrow = PIXES_PER_ROW - 1;
-	if (plant != nullptr)
-		originRows += 1;
-	if (!seeds.empty())
-		originRows += 1;
-	bool showZombie = true, showZombieDetail = false;
-	bool showPlantDetail = false;
-	if (originRows > maxrow) {
-		//如果超过，僵尸只写数量
-		showZombie = false;
-		originRows -= zombies.size() - 1;
-	}
-	//如果这时候还有空间，优先写植物状态
-	if (originRows < maxrow&&plant!=nullptr) {
-		showPlantDetail = true;
-		originRows += 1;
-	}
-	if (maxrow - originRows >= zombies.size()) {
-		//足够写每一只僵尸的状态，则写出所有僵尸状态，否则不写
-		showZombieDetail = true;
-		originRows += zombies.size();
-	}
-	int startRow = 1 + (maxrow - originRows) / 2;
-	for (int i = 1; i < startRow; i++)
-		itemStrings[i] = string("");
-	int t = startRow;
-	if (plant != nullptr) {
-		itemStrings[t++] = plant->toString();
-		if (showPlantDetail)
-			itemStrings[t++] = plant->getStatus();
-	}
+	//先无条件处理子弹
 	//处理Seed。优先按照实际位置放。
 	if (!seeds.empty()) {
 		char seedLine[PIXES_PER_COL];
@@ -150,8 +118,44 @@ void Block::updateStrings()
 				}
 			}
 		}
-		itemStrings[t++] = string(seedLine);
+		itemStrings[1] = string(seedLine);
 	}
+	else {
+		itemStrings[1] = string("");
+	}
+	//再设计其他内容
+	int originRows = zombies.size();
+	const int maxrow = PIXES_PER_ROW - 2;
+	if (plant != nullptr)
+		originRows += 1;
+	bool showZombie = true, showZombieDetail = false;
+	bool showPlantDetail = false;
+	if (originRows > maxrow) {
+		//如果超过，僵尸只写数量
+		showZombie = false;
+		originRows -= zombies.size() - 1;
+	}
+	//如果这时候还有空间，优先写植物状态
+	if (originRows < maxrow&&plant!=nullptr) {
+		showPlantDetail = true;
+		originRows += 1;
+	}
+	if (maxrow - originRows >= zombies.size()) {
+		//足够写每一只僵尸的状态，则写出所有僵尸状态，否则不写
+		showZombieDetail = true;
+		originRows += zombies.size();
+	}
+	//开始写入
+	int startRow = 2 + (maxrow - originRows) / 2;
+	for (int i = 2; i < startRow; i++)
+		itemStrings[i] = string("");
+	int t = startRow;
+	if (plant != nullptr) {
+		itemStrings[t++] = plant->toString();
+		if (showPlantDetail)
+			itemStrings[t++] = plant->getStatus();
+	}
+	
 	if (showZombie) {
 		for (Zombie* zb : zombies) {
 			itemStrings[t++] = zb->toString();
@@ -164,7 +168,7 @@ void Block::updateStrings()
 		sprintf_s(buffer,100, "%d只僵尸", zombies.size());
 		itemStrings[t++] = string(buffer);
 	}
-	while (t <= maxrow)
+	while (t < PIXES_PER_ROW)
 		itemStrings[t++] = string("");
 }
 

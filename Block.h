@@ -18,7 +18,7 @@ class Block
 	Plant* plant;
 	int row, col;
 public:
-	static const int PIXES_PER_COL = 9, //每一格对应的列数。包含左边界。
+	static const int PIXES_PER_COL = 11, //每一格对应的列数。包含左边界。
 		PIXES_PER_ROW = 5,//每一格对应的行数，包含上边界。
 		CENTER_ROW = 2;
 	Block();//默认构造，构造后再设置具体参数

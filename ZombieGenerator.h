@@ -2,20 +2,20 @@
 对应于shop的僵尸产生类。
 */
 #pragma once
-#include "Factory.h"
+#include "ZombieFactory.h"
 class System;
 class ZombieGenerator
 {
 	System& system;
 	static const int N = 2;
-	AbstractFactory* factories[N];
+	AbstractZombieFactory* factories[N];
 public:
 	ZombieGenerator(System& sys);
 	void generate();
 	~ZombieGenerator();
 private:
 	int totalWeight()const;
-	AbstractFactory* getFactory(int x);
-	void makeZombie(AbstractFactory* factory);
+	AbstractZombieFactory* getFactory(int x);
+	void makeZombie(AbstractZombieFactory* factory);
 };
 

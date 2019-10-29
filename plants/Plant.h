@@ -16,7 +16,6 @@ public:
 	virtual inline bool eatable() { return true; }//地刺不能被吃, 其他的基本上都是true
 	void eaten(int dh);//被吃时调用。如果不是eatable则不执行任何操作。
 	void setBlock(int row, int col); //对植物来说其实不存在具体的列，设置到指定的行就可以了。
-	virtual inline bool available()const = 0;//超过冷却时间，可以购买
 	virtual inline std::string getStatus()const = 0;
 	virtual inline std::string toString()const = 0;//约定不超过一格宽度
 };

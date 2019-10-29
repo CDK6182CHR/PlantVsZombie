@@ -5,11 +5,11 @@
 #include <iomanip>
 #include <stdlib.h>
 #include <stdio.h>
-#include <Windows.h>
 #include "Placeable.h"
+#include "Terminal.h"
 using namespace std;
 
-Yard::Yard()
+Yard::Yard():terminal(Terminal::getInstance())
 {
 	for (int i = 0; i < ROWS; i++)
 		for (int j = 0; j < COLS; j++)
@@ -35,22 +35,14 @@ Yard::Yard()
 	printHLine();
 }
 
-void Yard::display()
+void Yard::updateUI()
 {
 	const int rows = ROWS * Block::PIXES_PER_ROW, cols = COLS * Block::PIXES_PER_COL;
 	for (int i = 0; i < rows; i++) {
-		HANDLE hout = GetStdHandle(STD_OUTPUT_HANDLE);
-		COORD coord;
-		CONSOLE_SCREEN_BUFFER_INFO csbi;
-		GetConsoleScreenBufferInfo(hout, &csbi);
-		coord.X = 0, coord.Y = i;
-		SetConsoleCursorPosition(hout, coord);
+		terminal->locateToPixelRow(i);
 		int localRow = i % Block::PIXES_PER_ROW;
 		int blockRow = blockWiseRow(i);
-		if (localRow == 0) {
-			printHLine();
-		}
-		else {
+		if (localRow!=0){
 			//内层是对block做循环，循环意义不同。
 			for (int t = 0; t < COLS; t++) {
 				Block* block = blockAt(blockRow, t);
@@ -62,8 +54,8 @@ void Yard::display()
 			cout << '#' << endl;
 		}
 	}
-	printHLine();
-	cout << "timestamp " << Placeable::timestamp << endl;
+	terminal->locateToTimeRow();
+	cout << "当前时间 " << Placeable::timestamp << endl;
 }
 
 void Yard::update()

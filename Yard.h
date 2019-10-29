@@ -8,13 +8,15 @@
 
 #define ROWS 5
 #define COLS 7
+class Terminal;
 
 class Yard
 {
 	Block blocks[ROWS][COLS];
+	Terminal* terminal;
 public:
 	Yard();
-	void display();
+	void updateUI();
 	void update();//时间更新引起，在所有植物僵尸更新之后调用
 	Block* blockAt(int row, int col);
 	std::stringstream sout;
