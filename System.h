@@ -7,6 +7,7 @@
 #include "Placeable.h"
 #include "plants\Seed.h"
 #include "Shop.h"
+#include "ZombieGenerator.h"
 
 class System
 {
@@ -15,6 +16,7 @@ class System
 	std::list<Seed*> seeds;
 	static const int SunrayInterval = 20, SunrayUnit = 25;
 	Shop shop; //ֵ
+	ZombieGenerator zombieGenerator;  //ֵ
 public:
 	Yard yard; //ֵ
 	System();

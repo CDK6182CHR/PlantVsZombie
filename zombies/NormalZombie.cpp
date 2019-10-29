@@ -1,6 +1,8 @@
 #include "NormalZombie.h"
 
-NormalZombie::NormalZombie(System& sys):Zombie(sys)
+
+NormalZombie::NormalZombie(System& sys):
+	Zombie(sys)
 {
 	hp = initHp;
 }
@@ -11,3 +13,5 @@ std::string NormalZombie::getStatus() const
 	sprintf_s(buffer, "(%d%%)", int(hp * 100.0 / initHp));
 	return std::string(buffer);
 }
+
+

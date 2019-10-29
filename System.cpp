@@ -8,19 +8,19 @@
 #include <windows.h>
 
 using namespace std;
-System::System():sunrays(0),scores(0),shop(*this)
+System::System():sunrays(0),scores(0),shop(*this),zombieGenerator(*this)
 {
 }
 
 void System::mainLoop()
 {
-	////////////////////////////控制台隐藏光标
-	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-	CONSOLE_CURSOR_INFO CursorInfo;
-	GetConsoleCursorInfo(handle, &CursorInfo);//获取控制台光标信息
-	CursorInfo.bVisible = false; //隐藏控制台光标
-	SetConsoleCursorInfo(handle, &CursorInfo);
-	////////////////////////////
+	//////////////////////////////控制台隐藏光标
+	//HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	//CONSOLE_CURSOR_INFO CursorInfo;
+	//GetConsoleCursorInfo(handle, &CursorInfo);//获取控制台光标信息
+	//CursorInfo.bVisible = false; //隐藏控制台光标
+	//SetConsoleCursorInfo(handle, &CursorInfo);
+	//////////////////////////////
 	PeaShooter* ps1 = new PeaShooter(*this), * ps2 = new PeaShooter(*this);
 	ps1->setBlock(1, 0);
 	ps1->place();
@@ -29,12 +29,12 @@ void System::mainLoop()
 	NormalZombie* nz = new NormalZombie(*this);
 	nz->setPosition(1, 56);
 	nz->place();
-	RoadblockZombie* rbz = new RoadblockZombie(*this);
+	/*RoadblockZombie* rbz = new RoadblockZombie(*this);
 	rbz->setPosition(1, 45);
-	rbz->place();
+	rbz->place();*/
 	///////////真正的主循环从这开始////////////
 	while (true) {
-		Sleep(1000);
+		Sleep(200);
 		if (_kbhit()) {
 			char ch = _getch();
 			if (ch == 'q') {
@@ -50,6 +50,7 @@ void System::update()
 {
 	//这些update过程中对象可能会被删掉
 	Placeable::timestamp++;
+	zombieGenerator.generate();
 	for (Placeable* p : list<Placeable*>(items))
 		p->update();
 	for (Seed* p : list<Seed*>(seeds)) {

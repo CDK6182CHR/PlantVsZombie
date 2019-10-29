@@ -13,5 +13,9 @@ public:
 	ZombieGenerator(System& sys);
 	void generate();
 	~ZombieGenerator();
+private:
+	int totalWeight()const;
+	AbstractFactory* getFactory(int x);
+	void makeZombie(AbstractFactory* factory);
 };
 
