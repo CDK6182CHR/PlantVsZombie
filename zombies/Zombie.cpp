@@ -27,15 +27,26 @@ void Zombie::eat(Plant* plant)
 	plant->eaten(damage());
 }
 
+
 void Zombie::update()
 {
 	Plant* p = position.target()->currentPlant();
 	if (p != nullptr && p->eatable())
 		eat(p);
-	else
+	else {
+		Block* pOld = position.target();
 		position.move(speed());
-	if (!position.inside())
-		remove();
+		Block* pNew = position.target();
+		if (pNew != pOld) {
+			pOld->removeZombie(this);
+			if (position.getColpix() <= 0)
+				system.gameOver(this);
+			else if (!position.inside())
+				remove();
+			else
+				pNew->addZombie(this);
+		}
+	}
 }
 
 void Zombie::attacked(int dh)

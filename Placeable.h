@@ -4,6 +4,7 @@
 */
 #pragma once
 #include "Position.h"
+#include <string>
 
 class Yard;
 class Block;
@@ -24,6 +25,5 @@ public:
 	int getRow();
 	int getColpix();
 	void setPosition(int row, int colpix);
-	virtual ~Placeable();
 };
 

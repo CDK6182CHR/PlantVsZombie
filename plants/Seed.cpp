@@ -7,11 +7,14 @@ using namespace std;
 
 Seed::Seed(System& sys, Plant& p):Placeable(sys),parent(p)
 {
+	position.setPos(p.getRow(), p.getColpix());
+	position.target()->addSeed(this);
 	system.addSeed(this);
 }
 
 void Seed::remove()
 {
+	position.target()->removeSeed(this);
 	system.removeSeed(this);
 }
 
@@ -21,14 +24,23 @@ void Seed::explode()
 	for (list<Zombie*>::iterator itr = zombies.begin(); itr != zombies.end(); ++itr) {
 		(*itr)->attacked(damage());
 	}
+	remove();
 }
 
 void Seed::update()
 {
 	if (position.target()->zombieCount())
 		explode();
-	else
+	else {
+		Block* oldBlock = position.target();
 		position.move(speed());
-	if (!position.inside())
-		remove();
+		Block* newBlock = position.target();
+		if (newBlock != oldBlock) {
+			oldBlock->removeSeed(this);
+			if (newBlock != nullptr)
+				newBlock->addSeed(this);
+			else
+				system.removeSeed(this);
+		}
+	}
 }

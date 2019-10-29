@@ -19,5 +19,6 @@ public:
 	inline virtual int speed() = 0;
 	virtual void explode();//爆炸，默认是对格子里的僵尸产生damage()的伤害。负责调用remove。
 	virtual void update();//更新位置，如果遇到僵尸调用爆炸
+	virtual inline char toChar()const=0;
 };
 

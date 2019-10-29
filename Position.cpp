@@ -8,10 +8,12 @@ Position::Position(Yard& yd):yard(yd),row(-1),colpix(-1)
 
 Block* Position::target()
 {
-	int bcol = colpix / Block::PIXES_PER_COL + int(colpix % Block::PIXES_PER_COL != 0);
+	int bcol = colpix / Block::PIXES_PER_COL;
 	int brow = row;
 	if (bcol >= 0 && bcol < COLS && brow >= 0 && brow < ROWS)
 		return yard.blockAt(brow, bcol);
+	else
+		return nullptr;
 }
 
 void Position::move(int dcol, int drow)

@@ -31,8 +31,3 @@ void Placeable::setPosition(int row, int colpix)
 {
 	position.setPos(row, colpix);
 }
-
-Placeable::~Placeable()
-{
-	remove();
-}
