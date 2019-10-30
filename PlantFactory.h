@@ -9,20 +9,23 @@ class AbstractPlantFactory
 {
 protected:
 	System& system;
-	const int coldPeriod;
+	const int coldPeriod, cost;
 	const std::string name;
 	int nextAvailableTime;
 public:
-	AbstractPlantFactory(System& sys, int cold, const std::string& n);
+	AbstractPlantFactory(System& sys, int cold, int cost,const std::string& n);
 	inline bool available()const {
 		return Placeable::timestamp >= nextAvailableTime;
 	}
 	//装填完成比例，整数
 	inline int getRate()const {
-		return (nextAvailableTime - Placeable::timestamp) * 100.0 / coldPeriod;
+		return 100-(nextAvailableTime - Placeable::timestamp) * 100.0 / coldPeriod;
 	}
 	inline const std::string& getName()const {
 		return name;
+	}
+	inline int getCost()const {
+		return cost;
 	}
 	std::string getStatus()const;
 	std::string toString()const;
@@ -34,13 +37,13 @@ class PlantFactory :
 	public AbstractPlantFactory
 {
 public:
-	PlantFactory(System& sys,int coldPeriod, const std::string& name);
+	PlantFactory(System& sys,int coldPeriod,int cst, const std::string& name);
 	virtual T* newInstance()override;
 };
 
 template<typename T>
-inline PlantFactory<T>::PlantFactory(System& sys,int coldPeriod, const std::string& name):
-	AbstractPlantFactory(sys,coldPeriod,name)
+inline PlantFactory<T>::PlantFactory(System& sys,int coldPeriod,int cst, const std::string& name):
+	AbstractPlantFactory(sys,coldPeriod,cst,name)
 {
 }
 

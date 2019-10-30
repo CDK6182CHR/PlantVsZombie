@@ -3,10 +3,11 @@
 class RoadblockZombie :
 	public NormalZombie
 {
-	static const int initHp = 20;
 protected:
 	//virtual inline int damage()const { return 2; }
 	//virtual inline int speed()const { return -1; }
+	virtual inline int initHp()const override { return 20; }
+	virtual inline int score()const override { return 2; }
 public:
 	RoadblockZombie(System& sys);
 	virtual inline std::string toString()const { return "Â·ÕÏ½©Ê¬"; }

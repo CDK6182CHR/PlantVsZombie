@@ -1,8 +1,9 @@
 #include "PlantFactory.h"
 using namespace std;
 
-AbstractPlantFactory::AbstractPlantFactory(System& sys,int cold, const std::string& n):
-	system(sys),coldPeriod(cold),name(n),nextAvailableTime(Placeable::timestamp)
+AbstractPlantFactory::AbstractPlantFactory(System& sys,int cold, int cst,
+					const std::string& n):
+	system(sys),coldPeriod(cold),cost(cst),name(n),nextAvailableTime(Placeable::timestamp)
 {
 }
 

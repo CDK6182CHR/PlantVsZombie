@@ -15,6 +15,7 @@ class System
 	int sunrays, scores;
 	std::list<Placeable*> items;
 	std::list<Seed*> seeds;
+	std::list<Placeable*> toRemove;
 	static const int SunrayInterval = 20, SunrayUnit = 25;
 public:
 	Yard yard; //值。必须保证yard在shop之前构造。
@@ -32,6 +33,7 @@ public:
 	void removeSeed(Seed* seed);
 	void gameOver(Zombie* winner);
 	void addSunray(int ds);
+	void useSunray(int ds);
 	void addScore(int ds);
 	inline int getSunray()const {
 		return sunrays;
@@ -40,8 +42,10 @@ public:
 		return scores;
 	}
 private:
+	void commitRemove();
 	//由用户指令直接调用的函数
 	void buyPlant();
 	void removePlant();
+	void quit();
 };
 

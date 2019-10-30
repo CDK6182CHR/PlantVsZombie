@@ -28,14 +28,14 @@ void System::mainLoop()
 	rbz->place();*/
 	///////////真正的主循环从这开始////////////
 	while (true) {
-		Sleep(200);
+		Sleep(250);
 		if (_kbhit()) {
-			char ch = _getch();
-			switch (ch)
+			ControlKey k = terminal->getKey();
+			switch (k)
 			{
-			case 'q':cout << "Bye" << endl; return;
-			case 'b':buyPlant(); break;
-			case 'c':removePlant(); break;
+			case Quit:quit(); return;
+			case BuyPlant:buyPlant(); break;
+			case RemovePlant:removePlant(); break;
 			default:
 				break;
 			}
@@ -49,13 +49,18 @@ void System::update()
 	//这些update过程中对象可能会被删掉
 	Placeable::timestamp++;
 	zombieGenerator.generate();
+	if (Placeable::timestamp % SunrayInterval == 1)
+		addSunray(SunrayUnit);
+	//前面的东西可能会把后面的搞死，不能简单地复制循环
 	for (Placeable* p : list<Placeable*>(items))
 		p->update();
 	for (Seed* p : list<Seed*>(seeds)) {
 		p->update();
 	}
+	commitRemove();
 	yard.update();
 	yard.updateUI();
+	shop.updateUI();
 }
 
 void System::addItem(Placeable* item)
@@ -65,8 +70,7 @@ void System::addItem(Placeable* item)
 
 void System::removeItem(Placeable* item)
 {
-	items.remove(item);
-	delete item;
+	toRemove.push_back(item);
 }
 
 void System::addSeed(Seed* seed)
@@ -83,11 +87,32 @@ void System::removeSeed(Seed* seed)
 void System::gameOver(Zombie* winner)
 {
 	cout << "GameOver! " << "winner is " << winner->toString() << endl;
+	exit(0);
+}
+
+void System::addSunray(int ds)
+{
+	sunrays += ds;
+}
+
+void System::useSunray(int ds)
+{
+	sunrays -= ds;
 }
 
 void System::addScore(int ds)
 {
 	scores += ds;
+}
+
+void System::commitRemove()
+{
+	while (!toRemove.empty()) {
+		Placeable* p = toRemove.front();
+		toRemove.pop_front();
+		items.remove(p);
+		delete p;
+	}
 }
 
 void System::buyPlant()
@@ -98,4 +123,8 @@ void System::buyPlant()
 void System::removePlant()
 {
 	//todo
+}
+
+void System::quit()
+{
 }

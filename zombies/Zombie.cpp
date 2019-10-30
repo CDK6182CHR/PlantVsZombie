@@ -18,6 +18,7 @@ void Zombie::place()
 void Zombie::remove()
 {
 	position.target()->removeZombie(this);
+	system.addScore(score());
 	system.removeItem(this);
 }
 
@@ -31,7 +32,10 @@ void Zombie::eat(Plant* plant)
 
 void Zombie::update()
 {
-	Plant* p = position.target()->currentPlant();
+	if (position.getColpix() < 0)
+		system.gameOver(this);
+	Block* b = position.target();
+	Plant* p = b->currentPlant();
 	if (p != nullptr && p->eatable()) {
 		if (timestamp >= nextBiteTime) {
 			eat(p);
@@ -44,7 +48,7 @@ void Zombie::update()
 		Block* pNew = position.target();
 		if (pNew != pOld) {
 			pOld->removeZombie(this);
-			if (position.getColpix() <= 0)
+			if (position.getColpix() < 0)
 				system.gameOver(this);
 			else if (!position.inside())
 				remove();
@@ -64,4 +68,11 @@ void Zombie::attacked(int dh)
 void Zombie::slowDown(int tm)
 {
 	normalSpeedTime = tm + timestamp;
+}
+
+std::string Zombie::getStatus() const
+{
+	char buffer[100];
+	sprintf_s(buffer, "(%d%%)", int(hp * 100.0 / initHp()));
+	return std::string(buffer);
 }

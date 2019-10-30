@@ -33,6 +33,11 @@ Yard::Yard():terminal(Terminal::getInstance())
 		}
 	}
 	printHLine();
+	terminal->locateToPixelRow(terminal->getTimeRow());
+	terminal->locateToCol(50);
+	cout << "| 当前时间: ";
+	terminal->setTimePos(terminal->getCurrentRow(), terminal->getCurrentCol());
+	cout << Placeable::timestamp;
 }
 
 void Yard::updateUI()
@@ -54,8 +59,7 @@ void Yard::updateUI()
 			cout << '#' << endl;
 		}
 	}
-	terminal->locateToTimeRow();
-	cout << "当前时间 " << Placeable::timestamp << endl;
+	terminal->updateTimeStamp();
 }
 
 void Yard::update()

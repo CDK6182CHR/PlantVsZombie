@@ -6,7 +6,7 @@ class Yard;
 class PeaShooter :
 	public Plant
 {
-	static const int initHp = 10, sunrays = 100, interval = 4;
+	static const int initHp = 10, interval = 4;
 	int nextShootTime;
 public:
 	PeaShooter(System& sys);

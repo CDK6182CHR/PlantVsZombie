@@ -2,6 +2,6 @@
 
 RoadblockZombie::RoadblockZombie(System& sys):NormalZombie(sys)
 {
-	hp = initHp;
+	hp = initHp();
 }
 

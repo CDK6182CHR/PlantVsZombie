@@ -22,7 +22,7 @@ void Seed::explode()
 {
 	list<Zombie*> zombies = position.target()->getZombies();//øΩ±¥ππ‘Ï£°
 	for (list<Zombie*>::iterator itr = zombies.begin(); itr != zombies.end(); ++itr) {
-		(*itr)->attacked(damage());
+		attactZombie(*itr);
 	}
 	remove();
 }
@@ -43,4 +43,9 @@ void Seed::update()
 				system.removeSeed(this);
 		}
 	}
+}
+
+void Seed::attactZombie(Zombie* zombie)
+{
+	zombie->attacked(damage());
 }

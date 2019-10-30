@@ -17,11 +17,14 @@ class Shop
 	AbstractPlantFactory* factories[N];
 public:
 	Shop(System& sys);
-	Plant* buy();//涉及交互，负责向yard添加植物
+	void buy();//涉及交互，负责向yard添加植物
 	~Shop();
 	void updateUI();
 	friend class Terminal;
 private:
 	void initUI();
+	void plantChanged(int i);//改变选择的植物，显示信息。
+	bool keyPressed(ControlKey key,int& curIndex); // 返回true表示退出进程
+	bool addNewPlant(AbstractPlantFactory* factory);  //返回是否要退出
 };
 

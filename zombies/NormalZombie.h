@@ -5,9 +5,11 @@
 class NormalZombie :
 	public Zombie
 {
-	static const int initHp = 10, normalSpeed = -2, biteInterval = 3;
+	static const int normalSpeed = -2, biteInterval = 3;
 protected:
 	virtual inline int damage()const { return 2; }
+	virtual inline int initHp()const override { return 10; }
+	virtual inline int score()const override { return 1; }
 	virtual inline int speed()const override {
 		return timestamp >= normalSpeedTime ? normalSpeed : normalSpeed / 2;
 	}
@@ -17,6 +19,5 @@ protected:
 public:
 	NormalZombie(System& sys);
 	virtual inline std::string toString()const { return "½©Ê¬"; }
-	virtual std::string getStatus()const;
 };
 
