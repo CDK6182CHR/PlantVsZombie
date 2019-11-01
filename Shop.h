@@ -13,7 +13,7 @@ class Shop
 	Yard& yard;
 	const static int LengthPerPlant = 40,//商店中每个植物的长度，字符
 		PlantsPerRow = 2, //每行显示多少植物
-		N = 1; //一共多少种植物
+		N = 7; //一共多少种植物
 	AbstractPlantFactory* factories[N];
 public:
 	Shop(System& sys);

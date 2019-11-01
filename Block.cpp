@@ -136,7 +136,7 @@ void Block::updateStrings()
 		originRows -= zombies.size() - 1;
 	}
 	//如果这时候还有空间，优先写植物状态
-	if (originRows < maxrow&&plant!=nullptr) {
+	if (originRows < maxrow&&plant!=nullptr&&plant->hasStatus()) {
 		showPlantDetail = true;
 		originRows += 1;
 	}

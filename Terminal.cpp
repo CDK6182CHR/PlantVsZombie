@@ -95,9 +95,9 @@ int Terminal::getTimeRow()const
 void Terminal::locateToPlant(int index)
 {
 	int localRow = index / Shop::PlantsPerRow;
-	int globalRow = Block::PIXES_PER_ROW * ROWS + 5;
+	int globalRow = Block::PIXES_PER_ROW * ROWS + 5 + localRow;
 	coord.Y = globalRow;
-	coord.X = index % Shop::PlantsPerRow * Shop::LengthPerPlant;
+	coord.X = (index % Shop::PlantsPerRow) * Shop::LengthPerPlant;
 	SetConsoleCursorPosition(hout,coord);
 	setCursorVisible();
 }

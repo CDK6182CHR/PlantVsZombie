@@ -2,6 +2,8 @@
 #include "Block.h"
 #include "System.h"
 #include "Position.h"
+#include <string>
+using namespace std;
 
 Plant::Plant(System& sys):Placeable(sys),hp(0)
 {
@@ -37,4 +39,11 @@ void Plant::eaten(int dh)
 void Plant::setBlock(int row, int col)
 {
 	position.setBlock(row, col);
+}
+
+inline std::string Plant::getStatus() const
+{
+	char buffer[100];
+	sprintf_s(buffer, 100, "(%d%%)", (int)((double)hp * 100 / initHp()));
+	return string(buffer);
 }

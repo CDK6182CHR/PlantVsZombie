@@ -1,6 +1,5 @@
 #include "ZombieGenerator.h"
-#include "zombies/NormalZombie.h"
-#include "zombies/RoadblockZombie.h"
+#include "zombies/zombies.h"
 #include "Yard.h"
 #include <stdlib.h>
 #include <time.h>
@@ -8,8 +7,10 @@
 ZombieGenerator::ZombieGenerator(System& sys):system(sys)
 {
 	srand(time(nullptr));
-	factories[0] = new ZombieFactory<NormalZombie>(system,20,20);
-	factories[1] = new ZombieFactory<RoadblockZombie>(system,10,50);
+	factories[0] = new ZombieFactory<NormalZombie>(system,20,40);
+	factories[1] = new ZombieFactory<RoadblockZombie>(system,10,100);
+	factories[2] = new ZombieFactory<BucketZombie>(system, 8, 150);
+	factories[3] = new ZombieFactory<RugbyZombie>(system, 6, 250);
 }
 
 /*
@@ -20,7 +21,7 @@ void ZombieGenerator::generate()
 	int tw = totalWeight();
 	if (tw == 0)
 		return;
-	int upper = int(tw * 10.0 / 1);
+	int upper = int(tw * 10.0 / 1.5);
 	int r = rand() % upper;
 	if (r < tw) {
 		makeZombie(getFactory(r));

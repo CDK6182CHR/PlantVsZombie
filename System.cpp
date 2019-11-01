@@ -122,7 +122,21 @@ void System::buyPlant()
 
 void System::removePlant()
 {
-	//todo
+	terminal->showStatus("铲子：按方向键选择地块，ENTER确认，x取消");
+	terminal->setCursorVisible(true);
+	terminal->locateToBlock(0, 0);
+	int row = 0, col = 0;
+	bool flag = yard.selectBlock(row, col);
+	if (flag) {
+		//表示确认删除
+		Block* block = yard.blockAt(row, col);
+		Plant* plant = block->currentPlant();
+		if (plant == nullptr) {
+			terminal->showStatus("该位置没有植物！");
+		}
+		block->removePlant();
+	}
+	terminal->clearStatus();
 }
 
 void System::quit()

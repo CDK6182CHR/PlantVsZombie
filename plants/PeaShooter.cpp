@@ -7,7 +7,7 @@ using namespace std;
 
 PeaShooter::PeaShooter(System& sys):Plant(sys),nextShootTime(timestamp+2)
 {
-	hp = initHp;
+	hp = initHp();
 }
 
 void PeaShooter::update()
@@ -16,13 +16,6 @@ void PeaShooter::update()
 		shoot();
 		nextShootTime += interval;
 	}
-}
-
-std::string PeaShooter::getStatus() const
-{
-	char buffer[100];
-	sprintf_s(buffer,100, "(%d%%)", (int)((double)hp*100 / initHp));
-	return string(buffer);
 }
 
 void PeaShooter::shoot()

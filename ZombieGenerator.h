@@ -7,7 +7,7 @@ class System;
 class ZombieGenerator
 {
 	System& system;
-	static const int N = 2;
+	static const int N = 4;
 	AbstractZombieFactory* factories[N];
 public:
 	ZombieGenerator(System& sys);

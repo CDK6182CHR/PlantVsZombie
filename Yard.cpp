@@ -76,6 +76,51 @@ Block* Yard::blockAt(int row, int col)
 	return nullptr;
 }
 
+bool Yard::selectBlock(int& row, int& col)
+{
+	terminal->locateToBlock(row, col);
+	while (true) {
+		ControlKey key = terminal->getKey();
+		switch (key)
+		{
+		case KeyUp: {
+			if (row > 0) {
+				row--;
+				terminal->locateToBlock(row, col);
+			}
+		}
+				  break;
+		case KeyDown: {
+			if (row < ROWS - 1) {
+				row++;
+				terminal->locateToBlock(row, col);
+			}
+		}
+					break;
+		case KeyLeft: {
+			if (col > 0) {
+				col--;
+				terminal->locateToBlock(row, col);
+			}
+		}
+					break;
+		case KeyRight:
+			if (col < COLS - 1) {
+				col++;
+				terminal->locateToBlock(row, col);
+			}
+			break;
+		case KeyEnter: {
+			return true;
+			
+		}
+					 break;
+		case GiveUp:
+			return false;
+		}
+	}
+}
+
 void Yard::printHLine() 
 {
 	for (int i = 0; i < COLS * Block::PIXES_PER_COL + 1; i++)
