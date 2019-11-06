@@ -25,11 +25,11 @@ Yard::Yard():terminal(Terminal::getInstance())
 			//内层是对block做循环，循环意义不同。
 			for (int t = 0; t < COLS; t++) {
 				Block* block = blockAt(blockRow, t);
-				cout << '#';
+				cout << '+';
 				cout << setw(Block::PIXES_PER_COL - 1) << setiosflags(ios::left) <<
 					block->getBlockText(localRow);
 			}
-			cout << '#' << endl;
+			cout << '+' << endl;
 		}
 	}
 	printHLine();
@@ -51,12 +51,12 @@ void Yard::updateUI()
 			//内层是对block做循环，循环意义不同。
 			for (int t = 0; t < COLS; t++) {
 				Block* block = blockAt(blockRow, t);
-				cout << '#';
+				cout << '+';
 				
 				cout << setw(Block::PIXES_PER_COL - 1) << setiosflags(ios::left) <<
 					block->getBlockText(localRow);
 			}
-			cout << '#' << endl;
+			cout << '+' << endl;
 		}
 	}
 	terminal->updateTimeStamp();
@@ -121,10 +121,40 @@ bool Yard::selectBlock(int& row, int& col)
 	}
 }
 
+Block* Yard::upperNeighbor(Block* b)
+{
+	if (b->getRow() > 0)
+		return blockAt(b->getRow() - 1, b->getCol());
+	return nullptr;
+}
+
+Block* Yard::downNeighbor(Block* b)
+{
+	if ((b->getRow() < ROWS - 1))
+		return blockAt(b->getRow() + 1, b->getCol());
+	return nullptr;
+}
+
+std::list<Block*> Yard::neighborBlocks(Block* b)
+{
+	int row = b->getRow(), col = b->getCol();
+	list<Block*> blocks;
+	//利用的blockAt当无效数据时返回nullptr的性质
+	for (int i = row - 1; i <= row + 1; i++) {
+		for (int j = col - 1; j <= col + 1; j++) {
+			Block* bl = blockAt(i, j);
+			if (bl != nullptr && bl != b) {
+				blocks.push_back(bl);
+			}
+		}
+	}
+	return blocks;
+}
+
 void Yard::printHLine() 
 {
 	for (int i = 0; i < COLS * Block::PIXES_PER_COL + 1; i++)
-		cout << '#';
+		cout << '+';
 	cout << endl;
 }
 

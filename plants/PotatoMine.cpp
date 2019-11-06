@@ -13,7 +13,7 @@ PotatoMine::PotatoMine(System& system):
 std::string PotatoMine::getStatus() const
 {
 	if (timestamp < availableTime)
-		return Plant::getStatus();
+		return "(准备中)";
 	else
 		return "(就绪)";
 }
@@ -27,6 +27,7 @@ void PotatoMine::update()
 				z->remove();//直接去死
 			}
 			remove();
+			block->setStatus(BlockStatus::WholeExploded);
 		}
 	}
 }

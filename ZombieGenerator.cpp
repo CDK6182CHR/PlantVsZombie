@@ -4,13 +4,18 @@
 #include <stdlib.h>
 #include <time.h>
 
-ZombieGenerator::ZombieGenerator(System& sys):system(sys)
+ZombieGenerator::ZombieGenerator(System& sys) :system(sys),
+factories{
+	new ZombieFactory<NormalZombie>(system,10,50),
+	new ZombieFactory<RoadblockZombie>(system,10,80),
+	new ZombieFactory<BucketZombie>(system, 8, 120),
+	new ZombieFactory<PaperZombie>(system,6,140),
+	new ZombieFactory<ToyZombie>(system,4,200),
+	new ZombieFactory<RugbyZombie>(system, 6, 250),
+	new ZombieFactory<FlagZombie>(system, 0, 400),
+}
 {
 	srand(time(nullptr));
-	factories[0] = new ZombieFactory<NormalZombie>(system,20,40);
-	factories[1] = new ZombieFactory<RoadblockZombie>(system,10,100);
-	factories[2] = new ZombieFactory<BucketZombie>(system, 8, 150);
-	factories[3] = new ZombieFactory<RugbyZombie>(system, 6, 250);
 }
 
 /*
@@ -18,13 +23,19 @@ ZombieGenerator::ZombieGenerator(System& sys):system(sys)
 */
 void ZombieGenerator::generate()
 {
-	int tw = totalWeight();
-	if (tw == 0)
+	int avtw;
+	int tw = totalWeight(avtw);
+	double rt = rate() * avtw / tw;
+	if (Placeable::timestamp % GroupInterval == GroupInterval - GroupLength - 1)
+		makeZombie(factories[4]);
+	else if (avtw == 0 || rt==0.0)
 		return;
-	int upper = int(tw * 10.0 / 1.5);
-	int r = rand() % upper;
-	if (r < tw) {
-		makeZombie(getFactory(r));
+	int upper = int(avtw /rt);
+	for (int i = 0; i < truns(); i++) {
+		int r = rand() % upper;
+		if (r < avtw) {
+			makeZombie(getFactory(r));
+		}
 	}
 }
 
@@ -34,12 +45,15 @@ ZombieGenerator::~ZombieGenerator()
 		delete factories[i];
 }
 
-int ZombieGenerator::totalWeight() const
+int ZombieGenerator::totalWeight(int& availableSum) const
 {
-	int tw = 0;
-	for (int i = 0; i < N; i++)
+	int tw = 0, avtw = 0;
+	for (int i = 0; i < N; i++) {
+		tw += factories[i]->getWeight();
 		if (factories[i]->available())
-			tw += factories[i]->getWeight();
+			avtw += factories[i]->getWeight();
+	}
+	availableSum = avtw;
 	return tw;
 }
 
@@ -65,4 +79,38 @@ void ZombieGenerator::makeZombie(AbstractZombieFactory* factory)
 	int row = rand() % ROWS;
 	z->setPosition(row, COLS * Block::PIXES_PER_COL - 1);
 	z->place();
+}
+
+double ZombieGenerator::rate() const
+{
+	//每500个时钟周期产生一大波，时长50个时钟周期
+	int reducedTime = Placeable::timestamp % GroupInterval;
+	if (reducedTime == GroupInterval - GroupLength - 1)
+		return 0.0;//产生的前一刻，固定释放摇旗僵尸
+	else if (reducedTime > GroupInterval - GroupLength)
+		return 0.90;
+	//产生概率从0.2至0.6渐进增加
+	else {
+		return 0.4;
+	}
+}
+
+bool ZombieGenerator::inGroupMode() const
+{
+	int reducedTime = Placeable::timestamp % GroupInterval;
+	return reducedTime >= GroupInterval - GroupLength;
+}
+
+int ZombieGenerator::truns() const
+{
+	if (!inGroupMode())
+		return 1;
+	//第一轮时只循环1次，后面渐进增加至5次。
+	else {
+		int n = Placeable::timestamp / GroupInterval;
+		if (n < 5)
+			return n+1;
+		else
+			return 5;
+	}
 }

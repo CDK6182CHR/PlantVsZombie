@@ -2,7 +2,7 @@
 #include "PeaSeed.h"
 
 DoubleShooter::DoubleShooter(System& system):
-	Plant(system),nextShootTime(timestamp+1),twoShoots(true)
+	PeaShooter(system),nextShootTime(timestamp+1),twoShoots(true)
 {
 	hp = initHp();
 }
@@ -17,9 +17,4 @@ void DoubleShooter::update()
 			nextShootTime = timestamp + interval;
 		twoShoots = !twoShoots;
 	}
-}
-
-void DoubleShooter::shoot()
-{
-	new PeaSeed(system, *this);
 }

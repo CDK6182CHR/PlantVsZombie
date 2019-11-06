@@ -4,10 +4,10 @@
 #pragma once
 #include "Block.h"
 #include <sstream>
-
+#include <list>
 
 #define ROWS 5
-#define COLS 7
+#define COLS 8
 class Terminal;
 
 class Yard
@@ -21,6 +21,9 @@ public:
 	Block* blockAt(int row, int col);
 	std::stringstream sout;
 	bool selectBlock(int& row, int& col);  //用户交互，选择地块。返回是否确定。
+	Block* upperNeighbor(Block* b);
+	Block* downNeighbor(Block* b);
+	std::list<Block*> neighborBlocks(Block* b);
 private:
 	void printHLine();
 	int blockWiseRow(int pixelWiseRow)const;

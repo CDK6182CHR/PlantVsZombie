@@ -14,7 +14,6 @@ class System
 {
 	int sunrays, scores;
 	std::list<Placeable*> items;
-	std::list<Seed*> seeds;
 	std::list<Placeable*> toRemove;
 	static const int SunrayInterval = 20, SunrayUnit = 25;
 public:
@@ -29,8 +28,6 @@ public:
 	void update();//负责修改时间戳，调用所有对W象的update
 	void addItem(Placeable* item);
 	void removeItem(Placeable* item);
-	void addSeed(Seed* seed);
-	void removeSeed(Seed* seed);
 	void gameOver(Zombie* winner);
 	void addSunray(int ds);
 	void useSunray(int ds);
@@ -46,6 +43,6 @@ private:
 	//由用户指令直接调用的函数
 	void buyPlant();
 	void removePlant();
-	void quit();
+	bool quit();
 };
 

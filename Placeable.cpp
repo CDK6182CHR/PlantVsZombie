@@ -3,7 +3,7 @@
 
 int Placeable::timestamp = 0;
 
-Placeable::Placeable(System& sys):system(sys),position(sys.yard)
+Placeable::Placeable(System& sys):system(sys),position(sys.yard),active(true)
 {
 }
 

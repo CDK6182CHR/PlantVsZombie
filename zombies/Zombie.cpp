@@ -19,6 +19,7 @@ void Zombie::remove()
 {
 	position.target()->removeZombie(this);
 	system.addScore(score());
+	active = false;
 	system.removeItem(this);
 }
 
@@ -32,6 +33,8 @@ void Zombie::eat(Plant* plant)
 
 void Zombie::update()
 {
+	if (!active)
+		return;
 	if (position.getColpix() < 0)
 		system.gameOver(this);
 	Block* b = position.target();

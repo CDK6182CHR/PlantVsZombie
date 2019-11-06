@@ -20,6 +20,6 @@ void PeaShooter::update()
 
 void PeaShooter::shoot()
 {
-	PeaSeed* pea = new PeaSeed(system, *this);//seed会自己解决好一切
+	(new PeaSeed(system, *this))->place();//seed会自己解决好一切
 }
 

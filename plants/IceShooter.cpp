@@ -7,5 +7,5 @@ IceShooter::IceShooter(System& system):PeaShooter(system)
 
 void IceShooter::shoot()
 {
-	new IcePeaSeed(system, *this);
+	(new IcePeaSeed(system, *this))->place();
 }

@@ -5,3 +5,6 @@
 #include "RoadblockZombie.h"
 #include "BucketZombie.h"
 #include "RugbyZombie.h"
+#include "FlagZombie.h"
+#include "PaperZombie.h"
+#include "ToyZombie.h"

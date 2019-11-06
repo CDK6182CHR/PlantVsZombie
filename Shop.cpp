@@ -13,9 +13,11 @@ Shop::Shop(System& sys) :
 		new PlantFactory<PeaShooter>(sys,5,100,"豌豆射手"),
 		new PlantFactory<IceShooter>(sys,10,175,"寒冰射手"),
 		new PlantFactory<DoubleShooter>(sys,10,200,"双发射手"),
+		new PlantFactory<WatermelonThrower>(sys,20,300,"西瓜投手"),
 		new PlantFactory<NutWall>(sys,40,50,"坚果墙"),
 		new PlantFactory<Thorn>(sys,20,100,"地刺"),
 		new PlantFactory<PotatoMine>(sys,50,25,"土豆雷"),
+		new PlantFactory<SpicyPepper>(sys,50,300,"火爆辣椒"),
 	}
 {
 	initUI();

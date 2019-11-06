@@ -1,7 +1,7 @@
 #pragma once
-#include "Plant.h"
+#include "PeaShooter.h"
 class DoubleShooter :
-	public Plant
+	public PeaShooter
 {
 	const static int interval = 4;
 	bool twoShoots; //下一发是否连发
@@ -12,7 +12,5 @@ public:
 	DoubleShooter(System& system);
 	virtual void update()override;
 	virtual inline std::string toString()const override { return "双发射手"; }
-private:
-	void shoot();
 };
 

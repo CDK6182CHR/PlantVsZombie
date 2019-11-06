@@ -6,6 +6,13 @@
 #include <vector>
 #include <string>
 
+enum class BlockStatus
+{
+	Normal,
+	WholeExploded,
+	BottomExploded,
+};
+
 class Plant;
 class Zombie;
 class Seed;
@@ -15,6 +22,7 @@ class Block
 	std::list<Zombie*> zombies;
 	std::string* itemStrings;
 	std::list<Seed*> seeds;
+	BlockStatus status;
 	Plant* plant;
 	int row, col;
 public:
@@ -22,6 +30,7 @@ public:
 		PIXES_PER_ROW = 5,//每一格对应的行数，包含上边界。
 		CENTER_ROW = 2;
 	Block();//默认构造，构造后再设置具体参数
+	void setStatus(BlockStatus s);
 	void init(int r, int c);//必须
 	void addZombie(Zombie* zombie);
 	void removeZombie(Zombie* zombie);
@@ -35,6 +44,8 @@ public:
 	std::string getBlockText(int row)const;//返回第row行所示的文字。row在1至PIXES_PER_ROW之间。
 	void update();
 	bool operator==(const Block& an)const; //需要才实现
+	inline int getRow()const { return row; }
+	inline int getCol()const { return col; }
 	~Block();
 private:
 	void updateStrings();

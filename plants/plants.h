@@ -10,3 +10,5 @@
 #include "Thorn.h"
 #include "PotatoMine.h"
 #include "IceShooter.h"
+#include "WatermelonThrower.h"
+#include "SpicyPepper.h"

@@ -8,9 +8,14 @@
 using namespace std;
 
 Block::Block():
-	plant(nullptr),row(-1),col(-1),itemStrings(nullptr),zombies(),seeds()
+	plant(nullptr),row(-1),col(-1),itemStrings(nullptr),zombies(),seeds(),status(BlockStatus::Normal)
 {
 	itemStrings = new string[PIXES_PER_ROW];//第0个永远是空白，无效的
+}
+
+void Block::setStatus(BlockStatus s)
+{
+	status = s;
 }
 
 void Block::init(int r, int c)
@@ -123,7 +128,17 @@ void Block::updateStrings()
 	else {
 		itemStrings[1] = string("");
 	}
-	//再设计其他内容
+	//再设计其他内容。先考虑爆炸问题
+	if (status == BlockStatus::WholeExploded) {
+		char line[PIXES_PER_COL];
+		for (int i = 0; i < PIXES_PER_COL - 1; i++)
+			line[i] = '#';
+		line[PIXES_PER_COL - 1] = '\0';
+		for (int i = 2; i < PIXES_PER_ROW; i++)
+			itemStrings[i] = string(line);
+		status = BlockStatus::Normal;
+		return;
+	}
 	int originRows = zombies.size();
 	const int maxrow = PIXES_PER_ROW - 2;
 	if (plant != nullptr)
@@ -170,6 +185,14 @@ void Block::updateStrings()
 	}
 	while (t < PIXES_PER_ROW)
 		itemStrings[t++] = string("");
+	if (status == BlockStatus::BottomExploded) {
+		char line[PIXES_PER_COL];
+		for (int i = 0; i < PIXES_PER_COL - 1; i++)
+			line[i] = '#';
+		line[PIXES_PER_COL - 1] = '\0';
+		itemStrings[PIXES_PER_ROW - 1] = string(line);
+		status = BlockStatus::Normal;
+	}
 }
 
 //返回0对应第1列。
