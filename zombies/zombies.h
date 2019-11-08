@@ -9,3 +9,5 @@
 #include "PaperZombie.h"
 #include "ToyZombie.h"
 #include "VaultZombie.h"
+#include "protectors.h"
+#include "ProtectedZombie.h"

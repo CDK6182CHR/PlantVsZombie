@@ -20,7 +20,7 @@ public:
 	void remove();
 	virtual void eat(Plant* plant);
 	virtual void update();
-	void attacked(int dh);
+	virtual void attacked(int dh);
 	virtual inline std::string getStatus()const;
 	virtual inline std::string toString()const = 0;//约定不超过一格宽度
 	virtual void slowDown(int tm);
