@@ -12,3 +12,4 @@
 #include "IceShooter.h"
 #include "WatermelonThrower.h"
 #include "SpicyPepper.h"
+#include "CherryBomb.h"

@@ -11,6 +11,8 @@ ToyZombie::ToyZombie(System& system):NormalZombie(system)
 
 void ToyZombie::update()
 {
+	if (!active)
+		return;
 	int r = rand() % 100;
 	if (r <= rate())
 		explode();
@@ -33,10 +35,10 @@ void ToyZombie::explode()
 	remove();
 }
 
-//自爆的概率按照20~100%，根据列数，递增。
+//自爆的概率按照1~20%，根据列数，递增。
 int ToyZombie::rate() const
 {
 	int totalColpixes = COLS * Block::PIXES_PER_COL;
 	int currentColpix = position.getColpix();
-	return int((totalColpixes - currentColpix) * 80.0 / totalColpixes + 20);
+	return int((totalColpixes - currentColpix) * 19.0 / totalColpixes + 1);
 }

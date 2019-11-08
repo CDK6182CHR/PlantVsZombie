@@ -8,6 +8,22 @@ Zombie::Zombie(System& sys):
 {
 }
 
+void Zombie::move(int dcol, int drow)
+{
+	Block* pOld = position.target();
+	position.move(dcol);
+	Block* pNew = position.target();
+	if (pNew != pOld) {
+		pOld->removeZombie(this);
+		if (position.getColpix() < 0)
+			system.gameOver(this);
+		else if (!position.inside())
+			remove();
+		else
+			pNew->addZombie(this);
+	}
+}
+
 void Zombie::place()
 {
 	Block* pBlock = position.target();
@@ -46,18 +62,7 @@ void Zombie::update()
 		}
 	}
 	else {
-		Block* pOld = position.target();
-		position.move(speed());
-		Block* pNew = position.target();
-		if (pNew != pOld) {
-			pOld->removeZombie(this);
-			if (position.getColpix() < 0)
-				system.gameOver(this);
-			else if (!position.inside())
-				remove();
-			else
-				pNew->addZombie(this);
-		}
+		move(speed());
 	}
 }
 

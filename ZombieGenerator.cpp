@@ -10,8 +10,9 @@ factories{
 	new ZombieFactory<RoadblockZombie>(system,10,80),
 	new ZombieFactory<BucketZombie>(system, 8, 120),
 	new ZombieFactory<PaperZombie>(system,6,140),
-	new ZombieFactory<ToyZombie>(system,4,200),
-	new ZombieFactory<RugbyZombie>(system, 6, 250),
+	new ZombieFactory<VaultZombie>(system,5,250),
+	new ZombieFactory<ToyZombie>(system,4,320),
+	new ZombieFactory<RugbyZombie>(system, 6, 400),
 	new ZombieFactory<FlagZombie>(system, 0, 400),
 }
 {
@@ -23,9 +24,9 @@ factories{
 */
 void ZombieGenerator::generate()
 {
-	int avtw;
+	int avtw = 0;
 	int tw = totalWeight(avtw);
-	double rt = rate() * avtw / tw;
+	double rt = rate();
 	if (Placeable::timestamp % GroupInterval == GroupInterval - GroupLength - 1)
 		makeZombie(factories[4]);
 	else if (avtw == 0 || rt==0.0)
@@ -89,9 +90,11 @@ double ZombieGenerator::rate() const
 		return 0.0;//产生的前一刻，固定释放摇旗僵尸
 	else if (reducedTime > GroupInterval - GroupLength)
 		return 0.90;
-	//产生概率从0.2至0.6渐进增加
 	else {
-		return 0.4;
+		if (Placeable::timestamp < GroupInterval)
+			return 0.1 + 0.4 * Placeable::timestamp / GroupInterval;
+		else
+			return 0.5;
 	}
 }
 

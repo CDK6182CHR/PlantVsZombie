@@ -15,7 +15,7 @@ class System
 	int sunrays, scores;
 	std::list<Placeable*> items;
 	std::list<Placeable*> toRemove;
-	static const int SunrayInterval = 20, SunrayUnit = 25;
+	static const int SunrayInterval = 40, SunrayUnit = 25;
 public:
 	Yard yard; //值。必须保证yard在shop之前构造。
 private:

@@ -7,7 +7,7 @@ class System;
 class ZombieGenerator
 {
 	System& system;
-	static const int N = 7, GroupInterval = 500, GroupLength = 80;
+	static const int N = 8, GroupInterval = 500, GroupLength = 80;
 	AbstractZombieFactory* factories[N];
 public:
 	ZombieGenerator(System& sys);

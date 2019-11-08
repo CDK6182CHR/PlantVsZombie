@@ -15,6 +15,7 @@ protected:
 	virtual inline int getBiteInterval()const = 0;
 public:
 	Zombie(System& sys);
+	void move(int dcol, int drow = 0);//封装移动格子操作
 	void place();
 	void remove();
 	virtual void eat(Plant* plant);

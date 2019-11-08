@@ -1,7 +1,7 @@
-#include "plants\Plant.h"
-#include "Block.h"
-#include "System.h"
-#include "Position.h"
+#include "Plant.h"
+#include "../Block.h"
+#include "../System.h"
+#include "../Position.h"
 #include <string>
 using namespace std;
 

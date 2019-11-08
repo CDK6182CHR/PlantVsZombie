@@ -8,3 +8,4 @@
 #include "FlagZombie.h"
 #include "PaperZombie.h"
 #include "ToyZombie.h"
+#include "VaultZombie.h"

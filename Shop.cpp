@@ -18,6 +18,7 @@ Shop::Shop(System& sys) :
 		new PlantFactory<Thorn>(sys,20,100,"µØ´Ì"),
 		new PlantFactory<PotatoMine>(sys,50,25,"ÍÁ¶¹À×"),
 		new PlantFactory<SpicyPepper>(sys,50,300,"»ð±¬À±½·"),
+		new PlantFactory<CherryBomb>(sys,50,300,"Ó£ÌÒÕ¨µ¯"),
 	}
 {
 	initUI();
