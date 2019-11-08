@@ -41,3 +41,11 @@ public:
 	virtual inline std::string toString()const override { return "ÃÅ°å"; }
 	virtual inline int score()const override { return 4; }
 };
+
+class CR200J :public AbstractProtector {
+public:
+	CR200J();
+	virtual inline int initValue()const override { return 20; }
+	virtual inline std::string toString()const override { return "À¬»øÍ°"; }
+	virtual inline int score()const override { return 2; }
+};

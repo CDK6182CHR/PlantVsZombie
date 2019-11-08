@@ -11,6 +11,7 @@ public:
 	PaperZombie(System& system);
 	virtual inline std::string toString()const override { return "¶Á±¨½©Ê¬"; }
 	virtual std::string getStatus()const override;
+	virtual inline int score()const override { return 3; }
 private:
 	bool hasPaper()const;
 };

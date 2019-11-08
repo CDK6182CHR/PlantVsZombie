@@ -23,3 +23,8 @@ Door::Door()
 {
 	value = initValue();
 }
+
+CR200J::CR200J()
+{
+	value = initValue();
+}

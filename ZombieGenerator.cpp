@@ -5,18 +5,20 @@
 #include <time.h>
 
 ZombieGenerator::ZombieGenerator(System& sys) :system(sys),
+directFactory(new ZombieFactory<FlagZombie>(system, 0, 400)),
 factories{
 	new ZombieFactory<NormalZombie>(system,10,50),
 	//new ZombieFactory<RoadblockZombie>(system,10,80),
 	new ZombieFactory<ProtectedZombie<NormalZombie,RoadBlock>>(system,10,80),
 	//new ZombieFactory<BucketZombie>(system, 8, 120),
+	new ZombieFactory<ProtectedZombie<NormalZombie,CR200J>>(system,8,100),
 	new ZombieFactory<ProtectedZombie<NormalZombie,Bucket>>(system,8,120),
 	new ZombieFactory<PaperZombie>(system,6,140),
 	new ZombieFactory<ProtectedZombie<NormalZombie,Door>>(system,6,200),
 	new ZombieFactory<VaultZombie>(system,5,250),
 	new ZombieFactory<ToyZombie>(system,4,320),
 	new ZombieFactory<RugbyZombie>(system, 6, 400),
-	new ZombieFactory<FlagZombie>(system, 0, 400),
+	new ZombieFactory<ProtectedZombie<VaultZombie,RoadBlock>>(system,6,800),
 }
 {
 	srand(time(nullptr));
@@ -31,7 +33,7 @@ void ZombieGenerator::generate()
 	int tw = totalWeight(avtw);
 	double rt = rate();
 	if (Placeable::timestamp % GroupInterval == GroupInterval - GroupLength - 1)
-		makeZombie(factories[4]);
+		makeZombie(directFactory);
 	else if (avtw == 0 || rt==0.0)
 		return;
 	int upper = int(avtw /rt);
@@ -47,6 +49,7 @@ ZombieGenerator::~ZombieGenerator()
 {
 	for (int i = 0; i < N; i++)
 		delete factories[i];
+	delete directFactory;
 }
 
 int ZombieGenerator::totalWeight(int& availableSum) const

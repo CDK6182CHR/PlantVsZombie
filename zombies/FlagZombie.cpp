@@ -3,4 +3,5 @@
 FlagZombie::FlagZombie(System& system):
 	NormalZombie(system)
 {
+	hp = initHp();
 }

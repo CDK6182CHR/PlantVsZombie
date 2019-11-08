@@ -10,6 +10,7 @@ public:
 	VaultZombie(System& system);
 	virtual inline std::string toString()const override { return "³Å¸Ë½©Ê¬"; }
 	virtual std::string getStatus()const override;
+	virtual inline int score()const override { return 3; }
 	virtual void update()override;
 };
 
