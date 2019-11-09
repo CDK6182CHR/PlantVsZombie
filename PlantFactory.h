@@ -29,7 +29,7 @@ public:
 	}
 	std::string getStatus()const;
 	std::string toString()const;
-	virtual Placeable* newInstance() = 0;
+	virtual Plant* newInstance() = 0;
 };
 
 template <typename T>

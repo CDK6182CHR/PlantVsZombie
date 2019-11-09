@@ -1,0 +1,59 @@
+ 
+ class System{
+     系统总控制台
+ }
+
+ class Shop{
+     商店
+ }
+
+ System *-- Shop
+
+ class ZombieGenerator{
+     僵尸生成器
+ }
+ 
+ System *-- ZombieGenerator
+
+ abstract class AbstractZombieFactory{
+     抽象僵尸工厂
+ }
+
+ class ZombieFactory<T extends Zombie>{
+     具体的僵尸工厂
+ }
+
+AbstractZombieFactory <|--  ZombieFactory
+ZombieGenerator *-- AbstractZombieFactory
+
+abstract class Placeable{
+    场地上对象基类
+}
+
+abstract class Plant{
+    植物抽象类
+}
+
+Placeable <|-- Plant
+
+abstract class Zombie {
+    僵尸抽象类
+}
+
+Placeable <|-- Zombie
+
+ZombieFactory "Provides" --> Zombie
+
+abstract class AbstractPlantFactory{
+    抽象植物工厂类
+}
+
+class PlantFactory<T extends Plant>{
+    植物工厂类
+}
+
+Shop *-- AbstractPlantFactory
+AbstractPlantFactory <|-- PlantFactory
+PlantFactory "Provides" --> Plant
+
+System ... Placeable

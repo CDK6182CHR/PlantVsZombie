@@ -1,0 +1,75 @@
+abstract class AbstractProtector{
+    抽象僵尸护具
+}
+
+class RoadBlock{
+    路障
+}
+AbstractProtector <|-- RoadBlock
+
+
+class CR200J {
+    垃圾桶
+    (类名就当个彩蛋吧
+}
+AbstractProtector <|-- CR200J
+
+class Bucket{
+    铁桶
+}
+AbstractProtector <|-- Bucket
+
+class Door{
+    门板
+}
+AbstractProtector <|-- Door
+
+
+abstract class Zombie{
+
+}
+
+class NormalZombie{
+    普通僵尸
+}
+
+Zombie <|-- NormalZombie
+
+class ProtectedZombie <T extends Zombie, P extends AbstractProtector>{
+    各种带护具的僵尸
+}
+Zombie <|-- ProtectedZombie
+ProtectedZombie "Wears" --> AbstractProtector
+
+class FlagZombie{
+    摇旗僵尸
+}
+
+NormalZombie <|-- FlagZombie
+
+class RugbyZombie{
+    橄榄球僵尸
+}
+Zombie <|-- RugbyZombie
+
+class PaperZombie {
+    读报僵尸
+}
+Zombie <|-- PaperZombie
+
+class ToyZombie{
+    玩偶盒僵尸
+    或小丑僵尸
+}
+
+Zombie <|-- ToyZombie
+
+class VaultZombie{
+    撑杆僵尸
+}
+
+Zombie <|-- VaultZombie
+
+
+
+

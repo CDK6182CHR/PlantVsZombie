@@ -8,7 +8,7 @@ class Plant:
 	public Placeable
 {
 protected:
-	int hp;//生命值。每个子类设置一个static的生命值，初始化时自动放进去。
+	int hp;//当前生命值
 	virtual inline int initHp()const = 0;
 public:
 	Plant(System& sys);

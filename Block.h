@@ -43,7 +43,6 @@ public:
 	void removePlant();
 	std::string getBlockText(int row)const;//返回第row行所示的文字。row在1至PIXES_PER_ROW之间。
 	void update();
-	bool operator==(const Block& an)const; //需要才实现
 	inline int getRow()const { return row; }
 	inline int getCol()const { return col; }
 	~Block();

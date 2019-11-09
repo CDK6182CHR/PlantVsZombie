@@ -1,0 +1,26 @@
+abstract class Placeable{
+
+}
+
+abstract class Plant{
+
+}
+
+Placeable <|-- Plant
+
+abstract class Seed{
+    
+}
+
+Placeable <|-- Seed
+
+abstract class Zombie{
+
+}
+
+
+Placeable <|-- Zombie
+
+Plant "produces" --> Seed
+Seed "attacks" --> Zombie
+Zombie "eats" --> Plant

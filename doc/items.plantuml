@@ -1,0 +1,20 @@
+abstract class Zombie{
+
+}
+
+abstract class AbstractProtector{
+    抽象僵尸护具
+}
+
+class NormalZombie{
+    普通僵尸
+}
+
+Zombie <|-- NormalZombie
+
+class ProtectedZombie <T extends Zombie, P extends AbstractProtector>{
+    各种带护具的僵尸
+}
+Zombie <|-- ProtectedZombie
+ProtectedZombie "Wears" --> AbstractProtector
+

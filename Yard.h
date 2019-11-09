@@ -19,7 +19,6 @@ public:
 	void updateUI();
 	void update();//时间更新引起，在所有植物僵尸更新之后调用
 	Block* blockAt(int row, int col);
-	std::stringstream sout;
 	bool selectBlock(int& row, int& col);  //用户交互，选择地块。返回是否确定。
 	Block* upperNeighbor(Block* b);
 	Block* downNeighbor(Block* b);

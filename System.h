@@ -25,7 +25,7 @@ private:
 public:
 	System();
 	void mainLoop();//主事件循环
-	void update();//负责修改时间戳，调用所有对W象的update
+	void update();//负责修改时间戳，调用所有对象的update
 	void addItem(Placeable* item);
 	void removeItem(Placeable* item);
 	void gameOver(Zombie* winner);

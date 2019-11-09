@@ -1,0 +1,70 @@
+class PeaShooter{
+    豌豆射手
+}
+
+Plant <|-- PeaShooter
+
+class DoubleShooter{
+    双发射手
+}
+PeaShooter <|-- DoubleShooter
+
+class IceShooter{
+    寒冰射手
+}
+PeaShooter <|-- IceShooter
+
+class SunFlower{
+    向日葵
+}
+Plant <|-- SunFlower
+
+class NutWall{
+    坚果墙
+}
+Plant <|-- NutWall
+
+class Thorn {
+    地刺
+}
+Plant <|-- Thorn
+
+class PotatoMine{
+    土豆雷
+}
+Plant <|-- PotatoMine
+
+class WatermelonThrower{
+    西瓜投手
+}
+Plant <|-- WatermelonThrower
+
+class SpicyPepper{
+    火爆辣椒
+}
+Plant <|-- SpicyPepper
+
+class CherryBomb{
+    樱桃炸弹
+}
+Plant <|-- CherryBomb
+
+class PeaSeed{
+    豌豆
+}
+Seed <|-- PeaSeed
+
+PeaShooter "Produces" --> PeaSeed
+DoubleShooter "Produces" --> PeaSeed
+class IcePeaSeed{
+    冰豌豆
+}
+
+PeaSeed <|-- IcePeaSeed
+IceShooter "Produces" -->IcePeaSeed
+
+class Watermelon{
+    西瓜
+}
+Seed <|-- Watermelon
+WatermelonThrower "produces" --> Watermelon

@@ -1,0 +1,40 @@
+
+class Yard{
+    庭院类,ROWS行COLS列
+}
+
+class Block{
+    每一个地块
+}
+
+abstract class Placeable{
+    场地上对象
+}
+
+abstract class Plant{
+    抽象植物
+}
+
+abstract class Zombie{
+    抽象僵尸
+}
+
+abstract class Seed{
+    抽象炮弹
+}
+
+class Position{
+    对象位置
+}
+
+Yard  "ROWS*COLS" *-- Block
+Placeable <|-- Plant
+Placeable <|-- Zombie
+Placeable <|-- Seed
+
+Block "1" o-- Plant
+Block "n" o-- Zombie
+Block "n" o-- Seed 
+
+Placeable *-- Position
+Block --- Position
